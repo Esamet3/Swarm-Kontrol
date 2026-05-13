@@ -6,11 +6,18 @@ Bu proje, Gazebo simülasyon ortamında ArduPilot (SITL) ile çalışan bir Dron
 
 ## 🛠️ Sıfırdan Kurulum Rehberi (Ubuntu İçin)
 
-Eğer bu projeyi çalıştıracağınız bilgisayarda hiçbir şey kurulu değilse, aşağıdaki adımları **sırasıyla** terminalinize kopyalayıp yapıştırarak tüm sistemi kurabilirsiniz.
+Eğer bu projeyi başka, yepyeni bir bilgisayarda çalıştıracaksanız aşağıdaki adımları **sırasıyla** uygulayın.
+
+### 0. Adım: Projeyi Bilgisayara İndirmek (Klonlamak)
+Öncelikle terminali açın ve GitHub'daki kendi projenizi yeni bilgisayara indirin:
+```bash
+cd ~
+git clone https://github.com/KULLANICI_ADIN/PROJE_ADIN.git
+```
+*(Yukarıdaki linki kendi deponuzun linkiyle değiştirmeyi unutmayın).*
 
 ### 1. Adım: Gazebo Simülatörünün Kurulması
-Gazebo, dron ve aracımızı göreceğimiz 3 boyutlu simülasyon dünyasıdır.
-Terminali açın ve şu komutu yapıştırıp Enter'a basın:
+Gazebo, ortamı ve araçları görselleştirecek simülatördür.
 ```bash
 sudo apt update
 sudo apt install gazebo11 libgazebo11-dev -y
@@ -18,7 +25,6 @@ sudo apt install gazebo11 libgazebo11-dev -y
 
 ### 2. Adım: ArduPilot'un (Otopilot) Kurulması
 ArduPilot, araçlarımızın beynidir (SITL). Kurulumu bilgisayar hızına göre 5-15 dakika sürebilir.
-Terminale sırasıyla şu komutları yapıştırın:
 ```bash
 cd ~
 git clone https://github.com/ArduPilot/ardupilot.git
@@ -26,10 +32,13 @@ cd ardupilot
 git submodule update --init --recursive
 Tools/environment_install/install-prereqs-ubuntu.sh -y
 ```
-*(Bu işlem bittikten sonra terminali kapatıp **yeni bir terminal** açın ki ayarlar aktif olsun).*
+**ÇOK ÖNEMLİ:** Kurulum bittikten sonra `sim_vehicle.py` komutunun sistem tarafından tanınması için **terminali kapatıp baştan açın** veya şu komutu çalıştırın:
+```bash
+source ~/.profile
+```
 
-### 3. Adım: Gazebo ve ArduPilot'u Birbirine Bağlayan Eklenti
-ArduPilot'un Gazebo ile konuşabilmesi için bu eklentiyi kurmamız şart.
+### 3. Adım: Gazebo ve ArduPilot Eklentisinin Kurulması
+Gazebo'nun ArduPilot ile haberleşmesi için bu eklenti şarttır.
 ```bash
 cd ~
 git clone https://github.com/khancyr/ardupilot_gazebo.git
@@ -40,10 +49,17 @@ cmake ..
 make -j4
 sudo make install
 ```
+**ÇOK ÖNEMLİ (Modellerin Tanıtılması):** Simülatörün dron ve rover modellerini bulabilmesi için şu yolları sisteme eklemeliyiz. Terminale sırasıyla yapıştırın:
+```bash
+echo 'export GAZEBO_MODEL_PATH=~/ardupilot_gazebo/models:${GAZEBO_MODEL_PATH}' >> ~/.bashrc
+echo 'export GAZEBO_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/local/lib:${GAZEBO_PLUGIN_PATH}' >> ~/.bashrc
+source ~/.bashrc
+```
 
 ### 4. Adım: Python Kütüphanelerinin Kurulması
-Şimdi bizim indirdiğimiz proje klasörünün içine terminalden girin ve arayüzümüz için gereken Python kütüphanelerini kurun:
+İndirdiğimiz kendi projemizin klasörüne giriyoruz ve arayüz kütüphanelerini kuruyoruz:
 ```bash
+cd ~/PROJE_ADIN
 pip install -r requirements.txt
 ```
 
@@ -51,14 +67,8 @@ pip install -r requirements.txt
 
 ## 🚀 Sistemi Çalıştırma
 
-Tüm kurulumlar bittikten sonra (veya bilgisayarınızda bunlar zaten kuruluysa), sistemi tek tıkla ayağa kaldırmak çok kolaydır!
-
-Projenin ana dizininde (yani bu dosyanın olduğu klasörde) terminali açın ve sadece şu komutu yazın:
+Tüm kurulumlar bittikten sonra projeyi tek tıkla ayağa kaldırmak için projenin olduğu klasörde terminali açın:
 ```bash
 bash baslat.sh
 ```
-
-**Not:** Bu komut arka planda otomatik olarak yeni pencereler açıp Gazebo'yu, Dron'u ve Rover'ı başlatacak, en son da Kontrol Arayüzünü karşınıza getirecektir.
-
-
-
+*(Eğer baslat.sh yetki hatası verirse öncesinde `chmod +x baslat.sh` komutunu çalıştırabilirsiniz).*
