@@ -1,6 +1,19 @@
-# Milli Swarm Kontrol Merkezi
+# 🦅 Milli Swarm Kontrol Merkezi
 
-Bu proje, Gazebo simülasyon ortamında ArduPilot (SITL) ile çalışan bir Dron ve Rover'ın tek bir Python arayüzünden (CustomTkinter) aynı anda kontrol edilmesini sağlar.
+![Platform](https://img.shields.io/badge/Platform-Ubuntu_20.04%20%7C%2022.04-orange.svg)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
+![Sim](https://img.shields.io/badge/Sim-Gazebo%2011-green.svg)
+
+**Milli Swarm Kontrol Merkezi**, Gazebo 3D simülasyon ortamında ve ArduPilot (SITL) altyapısında çalışan İnsansız Hava Aracı (Dron) ve İnsansız Kara Aracının (Rover) eş zamanlı olarak kontrol edilmesini sağlayan modern bir Yer Kontrol İstasyonu (GCS) yazılımıdır.
+
+Python ve **CustomTkinter** kullanılarak geliştirilen bu arayüz, birden fazla otonom sistemin (Sürü / Swarm) tek bir merkezden, klavye veya arayüz butonları aracılığıyla kolayca yönetilmesini hedefler.
+
+## ✨ Öne Çıkan Özellikler
+*   **Çoklu Araç Kontrolü:** Aynı anda hem quadcopter (Dron) hem de rover araçlarına komut gönderebilme.
+*   **Gerçek Zamanlı Telemetri:** Her iki araç için anlık hız, irtifa ve uçuş/sürüş modu takibi.
+*   **Modern Arayüz (Dark Mode):** Göz yormayan, modern CustomTkinter arayüz tasarımı.
+*   **Tek Tıkla Simülasyon:** Tüm simülasyon altyapısını (Gazebo, Dron SITL, Rover SITL) tek bir betik (`baslat.sh`) ile saniyeler içinde başlatabilme.
+*   **SITL Entegrasyonu:** Gerçek bir uçuş kontrolcüsünün yazılımsal ikizi olan ArduPilot SITL (Software In The Loop) teknolojisi ile %100 gerçekçi tepkiler.
 
 ---
 
@@ -12,12 +25,11 @@ Eğer bu projeyi başka, yepyeni bir bilgisayarda çalıştıracaksanız aşağ�
 Öncelikle terminali açın ve GitHub'daki kendi projenizi yeni bilgisayara indirin:
 ```bash
 cd ~
-git clone https://github.com/KULLANICI_ADIN/PROJE_ADIN.git
+git clone https://github.com/Esamet3/Swarm-Kontrol.git
 ```
-*(Yukarıdaki linki kendi deponuzun linkiyle değiştirmeyi unutmayın).*
 
 ### 1. Adım: Gazebo Simülatörünün Kurulması
-Gazebo, ortamı ve araçları görselleştirecek simülatördür.
+Gazebo, ortamı ve araçları görselleştirecek 3 boyutlu simülatördür.
 ```bash
 sudo apt update
 sudo apt install gazebo11 libgazebo11-dev -y
@@ -57,9 +69,9 @@ source ~/.bashrc
 ```
 
 ### 4. Adım: Python Kütüphanelerinin Kurulması
-İndirdiğimiz kendi projemizin klasörüne giriyoruz ve arayüz kütüphanelerini kuruyoruz:
+İndirdiğimiz projemizin klasörüne giriyoruz ve arayüz kütüphanelerini kuruyoruz:
 ```bash
-cd ~/PROJE_ADIN
+cd ~/Swarm-Kontrol
 pip install -r requirements.txt
 ```
 
@@ -69,6 +81,7 @@ pip install -r requirements.txt
 
 Tüm kurulumlar bittikten sonra projeyi tek tıkla ayağa kaldırmak için projenin olduğu klasörde terminali açın:
 ```bash
+cd ~/Swarm-Kontrol
 bash baslat.sh
 ```
 *(Eğer baslat.sh yetki hatası verirse öncesinde `chmod +x baslat.sh` komutunu çalıştırabilirsiniz).*
