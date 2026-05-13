@@ -1,0 +1,9 @@
+# Python geçici dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal ortam klasörleri (varsa)
+venv/
+env/
+.env
